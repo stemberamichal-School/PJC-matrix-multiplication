@@ -16,7 +16,7 @@
 
 class Operation;
 enum class OperationState;
-
+class OperationResource;
 
 class OperationQueue {
 public:
@@ -27,7 +27,7 @@ private:
     struct PriorityComparator {
         bool operator()(const op_ptr& lhs, const op_ptr& rhs);
     };
-    /// Compares if the shared_ptr point to same pointer as given
+    /// Compares if the shared_ptr points to same address as given pointer
     struct PointerPredicate {
         Operation const * const m_ptr;
         bool operator()(const op_ptr& check);
@@ -42,7 +42,25 @@ private:
     std::vector<op_ptr> m_executing;
     /// Compares by priority and returns true if first has higher, false otherwise
     PriorityComparator m_cmp;
+    /// Resource to supply work when runs out of operations
+    std::weak_ptr<OperationResource> m_operationResource;
+    /// Internal function which can insert to already locked queue
+    template<class InputIterator>
+    void __unlockedInsertOperations(InputIterator first,
+                                    InputIterator end) {
+        // Update for insertion to queue
+        for(auto it = first; it != end; ++it) {
+            (*it)->prepareForInsertionIntoQueue(this);
+        }
+        // After that we lock the queue and insert operations
+        m_queueHeap.insert(m_queueHeap.end(), first, end);
+        std::make_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
+    }
+
 public:
+    /// Sets resource for additional operations when current are finished/waiting.
+    void setOperationResource(std::weak_ptr<OperationResource> & operationResource);
+
     /// Retrives next element from the queue
     /// If there are no more operations ends returns nil
     /// Waits on conditional variable for solving dependecies if all operations are Waiting.
@@ -56,7 +74,6 @@ public:
     /// Notifies waiting threads throuhgh condition variable
     template<class InputIterator>
     void insertOperations(InputIterator first, InputIterator end) {
-
         // Update for insertion to queue
         for(auto it = first; it != end; ++it) {
             (*it)->prepareForInsertionIntoQueue(this);

@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include "Operation.hpp"
+#include "OperationResource.hpp"
 #include "OperationQueue.hpp"
 
 bool OperationQueue::PriorityComparator::operator()(const OperationQueue::op_ptr& lhs,
@@ -22,12 +23,22 @@ bool OperationQueue::PointerPredicate::operator()(const op_ptr &check) {
 OperationQueue::PointerPredicate::PointerPredicate(Operation * const pointer)
     :m_ptr(pointer) { }
 
+
+void OperationQueue::setOperationResource(std::weak_ptr<OperationResource> & operationResource) {
+    m_operationResource = operationResource;
+}
+
 OperationQueue::op_ptr OperationQueue::next() {
     std::lock_guard<std::mutex> lk(m_queueLock);
 
-    // If no more return nullptr
-    if(m_queueHeap.empty()) {
-        return op_ptr(nullptr);
+    // If there are no operations that can be solved
+    if (m_queueHeap.empty()
+       || m_queueHeap.front().get()->getState() != OperationState::Ready) {
+        if (auto resource = m_operationResource.lock()) {
+            
+        } else {
+            return op_ptr(nullptr);
+        }
     }
 
     // pop with highest priority from m_queueHeap

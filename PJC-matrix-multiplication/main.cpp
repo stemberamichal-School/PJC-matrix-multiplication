@@ -22,9 +22,10 @@ enum class Option {
 
 class OptionControl {
     const char * const short_opts = "n:bs:w:h";
-    const option longOptions[2] = {
-        { "help", 0, nullptr, 'h' },
-        { "threads", 1, nullptr, 't' }
+    const option longOptions[3] = {
+        { "threads", 1, nullptr, 't' },
+        { "matrixes", 1, nullptr, 'm' },
+        { "help", 0, nullptr, 'h' }
     };
 
 public:

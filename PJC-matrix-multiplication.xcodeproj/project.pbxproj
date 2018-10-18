@@ -12,6 +12,7 @@
 		9079E09D203846060035D765 /* Operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9079E09B203846060035D765 /* Operation.cpp */; };
 		9079E0A0203846810035D765 /* OperationQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9079E09E203846810035D765 /* OperationQueue.cpp */; };
 		9079E0A320398DF90035D765 /* TestOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9079E0A120398DF90035D765 /* TestOperation.cpp */; };
+		908AC483203A192A00867D9A /* OperationResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 908AC481203A192A00867D9A /* OperationResource.cpp */; };
 		90930704202C3CD600116785 /* DivideAndConquer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90930702202C3CD600116785 /* DivideAndConquer.cpp */; };
 		90AFED372035D55500AA5FB8 /* MatrixBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED362035D55500AA5FB8 /* MatrixBase.cpp */; };
 		90AFED392035D57600AA5FB8 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED382035D57600AA5FB8 /* Matrix.cpp */; };
@@ -44,6 +45,8 @@
 		9079E09F203846810035D765 /* OperationQueue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OperationQueue.hpp; sourceTree = "<group>"; };
 		9079E0A120398DF90035D765 /* TestOperation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestOperation.cpp; sourceTree = "<group>"; };
 		9079E0A220398DF90035D765 /* TestOperation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestOperation.hpp; sourceTree = "<group>"; };
+		908AC481203A192A00867D9A /* OperationResource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OperationResource.cpp; sourceTree = "<group>"; };
+		908AC482203A192A00867D9A /* OperationResource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OperationResource.hpp; sourceTree = "<group>"; };
 		90930702202C3CD600116785 /* DivideAndConquer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DivideAndConquer.cpp; sourceTree = "<group>"; };
 		90930703202C3CD600116785 /* DivideAndConquer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DivideAndConquer.hpp; sourceTree = "<group>"; };
 		90AFED2B20357E7000AA5FB8 /* MatrixMultiplier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixMultiplier.hpp; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 			children = (
 				9079E09F203846810035D765 /* OperationQueue.hpp */,
 				9079E09E203846810035D765 /* OperationQueue.cpp */,
+				908AC482203A192A00867D9A /* OperationResource.hpp */,
+				908AC481203A192A00867D9A /* OperationResource.cpp */,
 				9079E09C203846060035D765 /* Operation.hpp */,
 				9079E09B203846060035D765 /* Operation.cpp */,
 				9079E0A220398DF90035D765 /* TestOperation.hpp */,
@@ -200,6 +205,7 @@
 			files = (
 				90AFED392035D57600AA5FB8 /* Matrix.cpp in Sources */,
 				9077403D201E5546009BFFD4 /* Iterative.cpp in Sources */,
+				908AC483203A192A00867D9A /* OperationResource.cpp in Sources */,
 				90AFED372035D55500AA5FB8 /* MatrixBase.cpp in Sources */,
 				9079E09D203846060035D765 /* Operation.cpp in Sources */,
 				90AFED3E2035E77B00AA5FB8 /* Multiplication.cpp in Sources */,
