@@ -11,7 +11,7 @@
 
 // MARK: - MatrixRow
 MatrixRow::MatrixRow(matrix_value_t * const row, matrix_size_t offset)
-:m_row(row), m_offset(offset) {}
+:m_row(row), m_offset(offset) { }
 
 matrix_value_t& MatrixRow::operator[](matrix_size_t index) {
     return m_row[index + m_offset];

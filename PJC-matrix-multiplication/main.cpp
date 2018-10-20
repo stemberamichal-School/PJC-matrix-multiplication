@@ -6,49 +6,28 @@
 //  Copyright © 2018 Michal Štembera. All rights reserved.
 //
 
-#include <iostream>
-#include <getopt.h>
 #include <vector>
+#include "OptionControl.hpp"
 #include "OperationQueue.hpp"
 #include "TestOperation.hpp"
 
-#define DEFAULT_MATRIXES_COUNT 1000
-#define DEFAULT_THREADS_COUNT 1
+int main(int argc, char ** argv) {
+    OptionControl option_control;
+    bool should_quit = option_control.parseOptions(argc, argv, std::cerr);
 
-enum class Option {
-    Help,
-    Threads,
-};
-
-class OptionControl {
-    const char * const short_opts = "n:bs:w:h";
-    const option longOptions[3] = {
-        { "threads", 1, nullptr, 't' },
-        { "matrixes", 1, nullptr, 'm' },
-        { "help", 0, nullptr, 'h' }
-    };
-
-public:
-    OptionControl(int argc, const char * argv[]) {
-
+    // Show help if requested
+    if(option_control.getShowHelp()) {
+        option_control.printHelp(std::cout);
     }
 
-    void printHelp(std::ostream & out) {
-        // Heading
-        out << "Multithread Matrix multiplier by Michal Stembera" << std::endl;
-        out << std::endl;
-        // Usage
-        out << "Usage:" << std::endl;
-        out << "matrix-mult [options]" << std::endl;
-        // Options
-        out << "Options:" << std::endl;
-        out << "    -t --threads <count> Number of threads used [default: " << DEFAULT_THREADS_COUNT << "]." << std::endl;
-        out << "    -m --matrixes <count> Number of matrixes multiplied [Default:" << DEFAULT_MATRIXES_COUNT << "]." << std::endl;
-        out << "    -h --help Show help." << std::endl;
+    if (should_quit == true) {
+        return 1;
+    } else {
+        std::cout << option_control; // Print selected options
     }
-};
+}
 
-int main(int argc, const char * argv[]) {
+void testOperationQueue() {
     OperationQueue queue;
     std::vector<OperationQueue::op_ptr> operations;
 
@@ -69,6 +48,4 @@ int main(int argc, const char * argv[]) {
     while((operation = queue.next()).get() != nullptr) {
         operation->execute();
     }
-
-    return 0;
 }

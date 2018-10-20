@@ -14,10 +14,10 @@
 #include "MatrixBase.hpp"
 
 struct Multiplication {
-    std::shared_ptr<MatrixBase> left;
-    std::shared_ptr<MatrixBase> right;
+    std::shared_ptr<MatrixBase> m_left;
+    std::shared_ptr<MatrixBase> m_right;
 
-    std::shared_ptr<MatrixBase> result;
+    std::shared_ptr<MatrixBase> m_result;
 
     Multiplication(std::shared_ptr<MatrixBase>left,
                    std::shared_ptr<MatrixBase> right,

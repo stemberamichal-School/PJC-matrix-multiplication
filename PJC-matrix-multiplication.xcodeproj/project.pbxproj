@@ -18,6 +18,7 @@
 		90AFED392035D57600AA5FB8 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED382035D57600AA5FB8 /* Matrix.cpp */; };
 		90AFED3B2035D69C00AA5FB8 /* SubMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED3A2035D69C00AA5FB8 /* SubMatrix.cpp */; };
 		90AFED3E2035E77B00AA5FB8 /* Multiplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED3C2035E77B00AA5FB8 /* Multiplication.cpp */; };
+		90BB1AB0217B8FE700187AF7 /* OptionControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90BB1AAE217B8FE700187AF7 /* OptionControl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +61,8 @@
 		90AFED3C2035E77B00AA5FB8 /* Multiplication.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Multiplication.cpp; sourceTree = "<group>"; };
 		90AFED3D2035E77B00AA5FB8 /* Multiplication.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Multiplication.hpp; sourceTree = "<group>"; };
 		90B5FF9420270CAC00777AEF /* Matrix.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
+		90BB1AAE217B8FE700187AF7 /* OptionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OptionControl.cpp; sourceTree = "<group>"; };
+		90BB1AAF217B8FE700187AF7 /* OptionControl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OptionControl.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,11 +96,13 @@
 			isa = PBXGroup;
 			children = (
 				90774034201DE7E7009BFFD4 /* main.cpp */,
+				90BB1AAF217B8FE700187AF7 /* OptionControl.hpp */,
+				90BB1AAE217B8FE700187AF7 /* OptionControl.cpp */,
+				9077403F201E5A4C009BFFD4 /* MatrixResource.hpp */,
+				9077403E201E5A4C009BFFD4 /* MatrixResource.cpp */,
 				90B5FF9220270C9400777AEF /* Matrix */,
 				9079E09A203845E80035D765 /* Operations */,
 				90930701202C3CA300116785 /* Multipliers */,
-				9077403F201E5A4C009BFFD4 /* MatrixResource.hpp */,
-				9077403E201E5A4C009BFFD4 /* MatrixResource.cpp */,
 			);
 			path = "PJC-matrix-multiplication";
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 				90AFED3E2035E77B00AA5FB8 /* Multiplication.cpp in Sources */,
 				90930704202C3CD600116785 /* DivideAndConquer.cpp in Sources */,
 				90774035201DE7E7009BFFD4 /* main.cpp in Sources */,
+				90BB1AB0217B8FE700187AF7 /* OptionControl.cpp in Sources */,
 				90AFED3B2035D69C00AA5FB8 /* SubMatrix.cpp in Sources */,
 				9079E0A0203846810035D765 /* OperationQueue.cpp in Sources */,
 				9079E0A320398DF90035D765 /* TestOperation.cpp in Sources */,
