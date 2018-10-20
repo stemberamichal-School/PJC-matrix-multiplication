@@ -44,13 +44,13 @@ bool OptionControl::parseOptions(int argc, char ** argv, std::ostream & error_ou
             }
         } catch (const std::invalid_argument & exc) {
             is_error = true;
-            error_out << "Invalid argument for option: -" << arg << std::endl;
+            error_out << "Invalid argument for option: -" << (char)arg << std::endl;
         } catch (const std::out_of_range & exc) {
             is_error = true;
             error_out << "Out of range argument for option: -" << (char)arg << std::endl;
         } catch (const std::exception & exc) {
             is_error = true;
-            error_out << "Invalid input for option: -" << arg << std::endl;
+            error_out << "Invalid input for option: -" << (char)arg << std::endl;
         }
     } while(arg != -1);
 
