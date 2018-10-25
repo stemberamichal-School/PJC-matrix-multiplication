@@ -38,7 +38,6 @@ bool OptionControl::parseOptions(int argc, char ** argv, std::ostream & error_ou
                 case '?': // Something else -> error
                 default:
                     is_error = true;
-                    error_out << "Invalid option." << std::endl;
                     break;
 
             }
@@ -53,10 +52,6 @@ bool OptionControl::parseOptions(int argc, char ** argv, std::ostream & error_ou
             error_out << "Invalid input for option: -" << (char)arg << std::endl;
         }
     } while(arg != -1);
-
-    if (is_error) {
-        error_out << "See help '-h'." << std::endl;
-    }
 
     return is_error;
 }

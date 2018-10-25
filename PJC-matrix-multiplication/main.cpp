@@ -13,14 +13,14 @@
 
 int main(int argc, char ** argv) {
     OptionControl option_control;
-    bool should_quit = option_control.parseOptions(argc, argv, std::cerr);
+    bool invalid_options = option_control.parseOptions(argc, argv, std::cerr);
 
     // Show help if requested
-    if(option_control.getShowHelp()) {
+    if(invalid_options || option_control.getShowHelp()) {
         option_control.printHelp(std::cout);
     }
 
-    if (should_quit == true) {
+    if (invalid_options) {
         return 1;
     } else {
         std::cout << option_control; // Print selected options
