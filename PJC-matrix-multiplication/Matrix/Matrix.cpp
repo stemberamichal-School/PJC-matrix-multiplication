@@ -20,6 +20,10 @@ MatrixRow Matrix::operator[](matrix_size_t index) {
     return MatrixRow(m_matrix[index]);
 }
 
+const MatrixRow Matrix::operator[](matrix_size_t index) const {
+    return MatrixRow(m_matrix[index]);
+}
+
 Matrix::~Matrix() {
     for (matrix_size_t i = 0; i < m_rows; ++i) {
         delete [] m_matrix[i];

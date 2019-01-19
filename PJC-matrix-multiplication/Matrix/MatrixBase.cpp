@@ -17,6 +17,10 @@ matrix_value_t& MatrixRow::operator[](matrix_size_t index) {
     return m_row[index + m_offset];
 }
 
+const matrix_value_t& MatrixRow::operator[](matrix_size_t index) const {
+    return m_row[index + m_offset];
+}
+
 MatrixRow& MatrixRow::withIncreasedOffset(matrix_size_t offset) {
     m_offset += offset;
     return *this;
@@ -26,11 +30,11 @@ MatrixRow& MatrixRow::withIncreasedOffset(matrix_size_t offset) {
 MatrixBase::MatrixBase(matrix_size_t rows, matrix_size_t columns)
 :m_rows(rows), m_columns(columns) { }
 
-matrix_size_t MatrixBase::rows() {
+matrix_size_t MatrixBase::rows() const {
     return m_rows;
 }
 
-matrix_size_t MatrixBase::columns() {
+matrix_size_t MatrixBase::columns() const {
     return m_columns;
 }
 

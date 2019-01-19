@@ -12,13 +12,16 @@
 #include <stdio.h>
 #include <vector>
 
+class Operation;
+
 /// Supplies additional work to the OperationQueue
 /// Not threadsafe
 class OperationResource {
+public:
     /// Determines whether there is more work to be done.
-    virtual bool workAvailable() = 0;
-    /// Supplies operations into given vector for insertion into queue.
-    virtual void insertOperations(std::vector<OperationResource> & operations) = 0;
+    virtual bool isWork() = 0;
+    /// Generates new Operations with proper dependencies if necessary and return vector of them
+    virtual std::vector<Operation *> getWork() = 0;
 };
 
 #endif /* OperationResource_hpp */

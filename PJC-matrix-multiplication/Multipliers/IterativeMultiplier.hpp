@@ -10,9 +10,17 @@
 #define Iterative_hpp
 
 #include <stdio.h>
+#include <iostream>
+
+class MatrixBase;
 
 class IterativeMultiplier {
-    
+
+public:
+    IterativeMultiplier();
+
+    std::shared_ptr<MatrixBase> multiply(std::shared_ptr<const MatrixBase> left,
+                                         std::shared_ptr<const MatrixBase> right);
 };
 
 #endif /* Iterative_hpp */

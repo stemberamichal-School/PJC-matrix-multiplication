@@ -11,6 +11,8 @@
 #include "OperationQueue.hpp"
 #include "TestOperation.hpp"
 
+void testOperationQueue();
+
 int main(int argc, char ** argv) {
     OptionControl option_control;
     bool invalid_options = option_control.parseOptions(argc, argv, std::cerr);
@@ -25,6 +27,8 @@ int main(int argc, char ** argv) {
     } else {
         std::cout << option_control; // Print selected options
     }
+
+    testOperationQueue();
 }
 
 void testOperationQueue() {
@@ -36,9 +40,11 @@ void testOperationQueue() {
         operations.push_back(op);
     }
 
-    for (unsigned long int i = 0; i < 9; ++i) {
-        auto op = OperationQueue::op_ptr(new TestOperation(1000000 + 1000 * i));
-        Operation::addDependecy(operations[i], operations[9]);
+    for (size_t i = 0; i < 10; ++i) {
+        for (size_t j = 0; i < 10; ++i) {
+            if (i == j) continue;
+            Operation::addDependecy(operations[i], operations[j]);
+        }
     }
 
 

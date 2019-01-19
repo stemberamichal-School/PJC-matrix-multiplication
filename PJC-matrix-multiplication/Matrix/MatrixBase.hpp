@@ -26,6 +26,8 @@ public:
     MatrixRow& withIncreasedOffset(matrix_size_t offset);
 
     virtual matrix_value_t& operator[](matrix_size_t index);
+
+    virtual const matrix_value_t& operator[](matrix_size_t index) const;
 };
 
 /// Matrix base
@@ -40,11 +42,13 @@ public:
     MatrixBase(matrix_size_t rows, matrix_size_t columns);
 
     /// Number of rows in matrix
-    virtual matrix_size_t rows();
+    virtual matrix_size_t rows() const;
     /// Number of columns in matrix
-    virtual matrix_size_t columns();
+    virtual matrix_size_t columns() const;
     /// Access to single row of the matrix through []
     virtual MatrixRow operator[](matrix_size_t index) = 0;
+    /// Access to constant row of the matrix through []
+    virtual const MatrixRow operator[](matrix_size_t index) const = 0;
 
     virtual ~MatrixBase() {}
 };

@@ -35,7 +35,7 @@ OperationQueue::op_ptr OperationQueue::next() {
     if (m_queueHeap.empty()
        || m_queueHeap.front().get()->getState() != OperationState::Ready) {
         if (auto resource = m_operationResource.lock()) {
-            
+            auto newOperations = resource->getWork();
         } else {
             return op_ptr(nullptr);
         }
@@ -58,7 +58,7 @@ void OperationQueue::operationDidFinish(Operation * op) {
     PointerPredicate predicate(op);
     auto remove_it = std::find_if(m_executing.begin(), m_executing.end(), predicate);
 
-    // if was not found, then there's nothing we can do
+    // if it was not found, then there's nothing we can do
     if(remove_it == m_executing.end()) {
         return;
     }

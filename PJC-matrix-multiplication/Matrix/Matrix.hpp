@@ -25,6 +25,8 @@ public:
 
     virtual MatrixRow operator[](matrix_size_t index);
 
+    virtual const MatrixRow operator[](matrix_size_t index) const;
+
     virtual ~Matrix();
 };
 
