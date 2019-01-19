@@ -10,24 +10,27 @@
 #define Matrix_hpp
 
 #include <stdio.h>
+#include <vector>
 #include "MatrixBase.hpp"
 
 /// Matrix representation
 class Matrix: public MatrixBase {
-    friend class SubMatrix;
-    friend class ConstSubMatrix;
 protected:
     /// All values of the matrix
     /// - First accessed by row then by column
-    matrix_value_t ** const m_matrix;
+    std::vector<matrix_value_t> m_matrix;
 public:
     Matrix(matrix_size_t rows, matrix_size_t columns);
 
-    virtual MatrixRow operator[](matrix_size_t index);
+    virtual matrix_value_t & value(matrix_size_t row, matrix_value_t column) override;
 
-    virtual const MatrixRow operator[](matrix_size_t index) const;
+    virtual const matrix_value_t & value(matrix_size_t row, matrix_value_t column) const override;
 
-    virtual ~Matrix();
+    virtual MatrixRow<MatrixBase> operator[](matrix_size_t index) override;
+
+    virtual const MatrixRow<const MatrixBase> operator[](matrix_size_t index) const override;
+
+    virtual ~Matrix() = default;
 };
 
 #endif /* Matrix_hpp */

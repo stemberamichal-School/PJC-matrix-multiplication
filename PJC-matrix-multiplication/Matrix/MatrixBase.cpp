@@ -7,23 +7,22 @@
 //
 
 #include <stdio.h>
+#include <memory>
 #include "MatrixBase.hpp"
 
 // MARK: - MatrixRow
-MatrixRow::MatrixRow(matrix_value_t * const row, matrix_size_t offset)
-:m_row(row), m_offset(offset) { }
+template<class matrix_base_t>
+MatrixRow<matrix_base_t>::MatrixRow(pointer matrix, matrix_size_t row_index, matrix_size_t column_offset)
+:m_matrix(matrix), m_row_index(row_index), m_column_offset(column_offset) { }
 
-matrix_value_t& MatrixRow::operator[](matrix_size_t index) {
-    return m_row[index + m_offset];
+template<class matrix_base_t>
+matrix_value_t& MatrixRow<matrix_base_t>::operator[](matrix_size_t index) {
+    return m_matrix->value(m_row_index, index + m_column_offset);
 }
 
-const matrix_value_t& MatrixRow::operator[](matrix_size_t index) const {
-    return m_row[index + m_offset];
-}
-
-MatrixRow& MatrixRow::withIncreasedOffset(matrix_size_t offset) {
-    m_offset += offset;
-    return *this;
+template<class matrix_base_t>
+const matrix_value_t& MatrixRow<matrix_base_t>::operator[](matrix_size_t index) const {
+    return m_matrix->value(m_row_index, index + m_column_offset);
 }
 
 // MARK: - MatrixBase

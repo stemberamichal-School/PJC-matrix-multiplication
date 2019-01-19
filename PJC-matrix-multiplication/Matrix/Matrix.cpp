@@ -7,26 +7,26 @@
 //
 
 #include <stdio.h>
+#include <memory>
 #include "Matrix.hpp"
 
 Matrix::Matrix(matrix_size_t rows, matrix_size_t columns)
-:MatrixBase(rows, columns), m_matrix(new matrix_value_t * [m_rows]) {
-    for (matrix_size_t i = 0; i < m_rows; ++i) {
-        m_matrix[i] = new matrix_value_t [columns];
-    }
+:MatrixBase(rows, columns), m_matrix(std::vector<matrix_value_t>(rows * columns)) {
 }
 
-MatrixRow Matrix::operator[](matrix_size_t index) {
-    return MatrixRow(m_matrix[index]);
+matrix_value_t & Matrix::value(matrix_size_t row, matrix_value_t column) {
+    return m_matrix[row * m_columns + column];
 }
 
-const MatrixRow Matrix::operator[](matrix_size_t index) const {
-    return MatrixRow(m_matrix[index]);
+const matrix_value_t & Matrix::value(matrix_size_t row, matrix_value_t column) const {
+    return m_matrix[row * m_columns + column];
 }
 
-Matrix::~Matrix() {
-    for (matrix_size_t i = 0; i < m_rows; ++i) {
-        delete [] m_matrix[i];
-    }
-    delete [] m_matrix;
+MatrixRow<MatrixBase> Matrix::operator[](matrix_size_t index) {
+    return MatrixRow<MatrixBase>(shared_from_this(), index);
 }
+
+const MatrixRow<const MatrixBase> Matrix::operator[](matrix_size_t index) const {
+    return MatrixRow<const MatrixBase>(shared_from_this(), index);
+}
+

@@ -10,20 +10,25 @@
 #define MatrixBase_hpp
 
 #include <stdio.h>
+#include <memory>
 
 typedef float matrix_value_t;
 typedef size_t matrix_size_t;
 
+class MatrixBase;
+
 /// Helper class for access through [][]
+template<class matrix_base_t>
 class MatrixRow {
+    static_assert(std::is_base_of<MatrixBase, matrix_base_t>::value, "matrix_base_t must extend MatrixBase");
 protected:
-    matrix_value_t * const m_row;
-    matrix_size_t m_offset;
+    using pointer = std::shared_ptr<matrix_base_t>;
+    matrix_size_t m_row_index;
+    matrix_size_t m_column_offset;
+    std::shared_ptr<matrix_base_t> m_matrix;
 
 public:
-    MatrixRow(matrix_value_t * const row, matrix_size_t offset = 0);
-
-    MatrixRow& withIncreasedOffset(matrix_size_t offset);
+    MatrixRow(pointer matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
 
     virtual matrix_value_t& operator[](matrix_size_t index);
 
@@ -31,7 +36,7 @@ public:
 };
 
 /// Matrix base
-class MatrixBase {
+class MatrixBase: public std::enable_shared_from_this<MatrixBase> {
 protected:
     /// Number of rows
     const matrix_size_t m_rows;
@@ -45,12 +50,16 @@ public:
     virtual matrix_size_t rows() const;
     /// Number of columns in matrix
     virtual matrix_size_t columns() const;
+    /// Access value in given row and column
+    virtual matrix_value_t & value(matrix_size_t row, matrix_value_t column) = 0;
+    /// Access constant in given row and column
+    virtual const matrix_value_t & value(matrix_size_t row, matrix_value_t column) const = 0;
     /// Access to single row of the matrix through []
-    virtual MatrixRow operator[](matrix_size_t index) = 0;
+    virtual MatrixRow<MatrixBase> operator[](matrix_size_t index) = 0;
     /// Access to constant row of the matrix through []
-    virtual const MatrixRow operator[](matrix_size_t index) const = 0;
+    virtual const MatrixRow<const MatrixBase> operator[](matrix_size_t index) const = 0;
 
-    virtual ~MatrixBase() {}
+    virtual ~MatrixBase() = default;
 };
 
 #endif /* MatrixBase_hpp */

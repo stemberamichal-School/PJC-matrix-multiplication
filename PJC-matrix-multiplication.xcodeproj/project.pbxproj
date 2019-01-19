@@ -16,9 +16,10 @@
 		90930704202C3CD600116785 /* DivideAndConquer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90930702202C3CD600116785 /* DivideAndConquer.cpp */; };
 		90AFED372035D55500AA5FB8 /* MatrixBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED362035D55500AA5FB8 /* MatrixBase.cpp */; };
 		90AFED392035D57600AA5FB8 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED382035D57600AA5FB8 /* Matrix.cpp */; };
-		90AFED3B2035D69C00AA5FB8 /* SubMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED3A2035D69C00AA5FB8 /* SubMatrix.cpp */; };
+		90AFED3B2035D69C00AA5FB8 /* MatrixView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED3A2035D69C00AA5FB8 /* MatrixView.cpp */; };
 		90AFED3E2035E77B00AA5FB8 /* Multiplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90AFED3C2035E77B00AA5FB8 /* Multiplication.cpp */; };
 		90BB1AB0217B8FE700187AF7 /* OptionControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90BB1AAE217B8FE700187AF7 /* OptionControl.cpp */; };
+		90F25C3821F33D42000438D8 /* SquareMatrixReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90F25C3621F33D42000438D8 /* SquareMatrixReader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,18 +52,19 @@
 		90930702202C3CD600116785 /* DivideAndConquer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DivideAndConquer.cpp; sourceTree = "<group>"; };
 		90930703202C3CD600116785 /* DivideAndConquer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DivideAndConquer.hpp; sourceTree = "<group>"; };
 		90AFED2B20357E7000AA5FB8 /* MatrixMultiplier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixMultiplier.hpp; sourceTree = "<group>"; };
-		90AFED2E2035879400AA5FB8 /* SubMatrix.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SubMatrix.hpp; sourceTree = "<group>"; };
+		90AFED2E2035879400AA5FB8 /* MatrixView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixView.hpp; sourceTree = "<group>"; };
 		90AFED31203587EA00AA5FB8 /* MatrixBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixBase.hpp; sourceTree = "<group>"; };
-		90AFED332035888300AA5FB8 /* ConstSubMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConstSubMatrix.cpp; sourceTree = "<group>"; };
-		90AFED342035888300AA5FB8 /* ConstSubMatrix.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConstSubMatrix.hpp; sourceTree = "<group>"; };
 		90AFED362035D55500AA5FB8 /* MatrixBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixBase.cpp; sourceTree = "<group>"; };
 		90AFED382035D57600AA5FB8 /* Matrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
-		90AFED3A2035D69C00AA5FB8 /* SubMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SubMatrix.cpp; sourceTree = "<group>"; };
+		90AFED3A2035D69C00AA5FB8 /* MatrixView.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixView.cpp; sourceTree = "<group>"; };
 		90AFED3C2035E77B00AA5FB8 /* Multiplication.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Multiplication.cpp; sourceTree = "<group>"; };
 		90AFED3D2035E77B00AA5FB8 /* Multiplication.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Multiplication.hpp; sourceTree = "<group>"; };
 		90B5FF9420270CAC00777AEF /* Matrix.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 		90BB1AAE217B8FE700187AF7 /* OptionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OptionControl.cpp; sourceTree = "<group>"; };
 		90BB1AAF217B8FE700187AF7 /* OptionControl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OptionControl.hpp; sourceTree = "<group>"; };
+		90F25C3421F33B38000438D8 /* MatrixReaderBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixReaderBase.hpp; sourceTree = "<group>"; };
+		90F25C3621F33D42000438D8 /* SquareMatrixReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SquareMatrixReader.cpp; sourceTree = "<group>"; };
+		90F25C3721F33D42000438D8 /* SquareMatrixReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SquareMatrixReader.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				9077403F201E5A4C009BFFD4 /* MatrixResource.hpp */,
 				9077403E201E5A4C009BFFD4 /* MatrixResource.cpp */,
 				90B5FF9220270C9400777AEF /* Matrix */,
+				90F25C3221F33B18000438D8 /* MatrixReader */,
 				9079E09A203845E80035D765 /* Operations */,
 				90930701202C3CA300116785 /* Multipliers */,
 			);
@@ -143,12 +146,20 @@
 				90AFED362035D55500AA5FB8 /* MatrixBase.cpp */,
 				90B5FF9420270CAC00777AEF /* Matrix.hpp */,
 				90AFED382035D57600AA5FB8 /* Matrix.cpp */,
-				90AFED2E2035879400AA5FB8 /* SubMatrix.hpp */,
-				90AFED3A2035D69C00AA5FB8 /* SubMatrix.cpp */,
-				90AFED342035888300AA5FB8 /* ConstSubMatrix.hpp */,
-				90AFED332035888300AA5FB8 /* ConstSubMatrix.cpp */,
+				90AFED2E2035879400AA5FB8 /* MatrixView.hpp */,
+				90AFED3A2035D69C00AA5FB8 /* MatrixView.cpp */,
 			);
 			path = Matrix;
+			sourceTree = "<group>";
+		};
+		90F25C3221F33B18000438D8 /* MatrixReader */ = {
+			isa = PBXGroup;
+			children = (
+				90F25C3421F33B38000438D8 /* MatrixReaderBase.hpp */,
+				90F25C3721F33D42000438D8 /* SquareMatrixReader.hpp */,
+				90F25C3621F33D42000438D8 /* SquareMatrixReader.cpp */,
+			);
+			path = MatrixReader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,7 +228,8 @@
 				90930704202C3CD600116785 /* DivideAndConquer.cpp in Sources */,
 				90774035201DE7E7009BFFD4 /* main.cpp in Sources */,
 				90BB1AB0217B8FE700187AF7 /* OptionControl.cpp in Sources */,
-				90AFED3B2035D69C00AA5FB8 /* SubMatrix.cpp in Sources */,
+				90F25C3821F33D42000438D8 /* SquareMatrixReader.cpp in Sources */,
+				90AFED3B2035D69C00AA5FB8 /* MatrixView.cpp in Sources */,
 				9079E0A0203846810035D765 /* OperationQueue.cpp in Sources */,
 				9079E0A320398DF90035D765 /* TestOperation.cpp in Sources */,
 			);
@@ -333,7 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 85G3K98R9J;
+				DEVELOPMENT_TEAM = D9Y8NEXMLG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -342,7 +354,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 85G3K98R9J;
+				DEVELOPMENT_TEAM = D9Y8NEXMLG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
