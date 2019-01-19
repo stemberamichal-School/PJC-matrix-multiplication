@@ -29,9 +29,9 @@ public:
 
     virtual const matrix_value_t & value(matrix_size_t row, matrix_value_t column) const override;
 
-    virtual MatrixRow<MatrixBase> operator[](matrix_size_t index) override;
+    virtual MatrixRow operator[](matrix_size_t index) override;
 
-    virtual const MatrixRow<const MatrixBase> operator[](matrix_size_t index) const override;
+    virtual ConstMatrixRow operator[](matrix_size_t index) const override;
 
     virtual ~Matrix() = default;
 };

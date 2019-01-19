@@ -28,11 +28,11 @@ const matrix_value_t & Matrix::value(matrix_size_t row, matrix_value_t column) c
     return m_matrix[row * m_columns + column];
 }
 
-MatrixRow<MatrixBase> Matrix::operator[](matrix_size_t index) {
-    return MatrixRow<MatrixBase>(shared_from_this(), index);
+MatrixRow Matrix::operator[](matrix_size_t index) {
+    return MatrixRow(shared_from_this(), index);
 }
 
-const MatrixRow<const MatrixBase> Matrix::operator[](matrix_size_t index) const {
-    return MatrixRow<const MatrixBase>(shared_from_this(), index);
+ConstMatrixRow Matrix::operator[](matrix_size_t index) const {
+    return ConstMatrixRow(shared_from_this(), index);
 }
 

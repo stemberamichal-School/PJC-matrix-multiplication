@@ -32,10 +32,10 @@ public:
               matrix_size_t columns);
 
     /// Access to single row of the matrix through []
-    virtual MatrixRow<MatrixBase> operator[](matrix_size_t index) override;
+    virtual MatrixRow operator[](matrix_size_t index) override;
 
     /// Access to constant row of the matrix through []
-    virtual const MatrixRow<const MatrixBase> operator[](matrix_size_t index) const override;
+    virtual ConstMatrixRow operator[](matrix_size_t index) const override;
 
     virtual ~MatrixView() = default;
 };

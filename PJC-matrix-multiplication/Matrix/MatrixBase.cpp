@@ -11,17 +11,22 @@
 #include "MatrixBase.hpp"
 
 // MARK: - MatrixRow
-template<class matrix_base_t>
-MatrixRow<matrix_base_t>::MatrixRow(pointer matrix, matrix_size_t row_index, matrix_size_t column_offset)
+MatrixRow::MatrixRow(pointer matrix, matrix_size_t row_index, matrix_size_t column_offset)
 :m_matrix(matrix), m_row_index(row_index), m_column_offset(column_offset) { }
 
-template<class matrix_base_t>
-matrix_value_t& MatrixRow<matrix_base_t>::operator[](matrix_size_t index) {
+matrix_value_t& MatrixRow::operator[](matrix_size_t index) {
     return m_matrix->value(m_row_index, index + m_column_offset);
 }
 
-template<class matrix_base_t>
-const matrix_value_t& MatrixRow<matrix_base_t>::operator[](matrix_size_t index) const {
+const matrix_value_t& MatrixRow::operator[](matrix_size_t index) const {
+    return m_matrix->value(m_row_index, index + m_column_offset);
+}
+
+// MARK: - ConstMatrixRow
+ConstMatrixRow::ConstMatrixRow(const_pointer matrix, matrix_size_t row_index, matrix_size_t column_offset)
+:m_matrix(matrix), m_row_index(row_index), m_column_offset(column_offset) { }
+
+const matrix_value_t& ConstMatrixRow::operator[](matrix_size_t index) const {
     return m_matrix->value(m_row_index, index + m_column_offset);
 }
 

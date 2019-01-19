@@ -18,21 +18,33 @@ typedef size_t matrix_size_t;
 class MatrixBase;
 
 /// Helper class for access through [][]
-template<class matrix_base_t>
 class MatrixRow {
-    static_assert(std::is_base_of<MatrixBase, matrix_base_t>::value, "matrix_base_t must extend MatrixBase");
 protected:
-    using pointer = std::shared_ptr<matrix_base_t>;
+    using pointer = std::shared_ptr<MatrixBase>;
     matrix_size_t m_row_index;
     matrix_size_t m_column_offset;
     pointer m_matrix;
 
 public:
-    MatrixRow(std::shared_ptr<matrix_base_t> matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
+    MatrixRow(pointer matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
 
     virtual matrix_value_t& operator[](matrix_size_t index);
 
     virtual const matrix_value_t& operator[](matrix_size_t index) const;
+};
+
+/// Helper class for const access through [][]
+class ConstMatrixRow {
+    protected:
+        using const_pointer = std::shared_ptr<const MatrixBase>;
+        matrix_size_t m_row_index;
+        matrix_size_t m_column_offset;
+        const_pointer m_matrix;
+
+    public:
+        ConstMatrixRow(const_pointer matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
+
+        virtual const matrix_value_t& operator[](matrix_size_t index) const;
 };
 
 /// Matrix base
@@ -55,9 +67,9 @@ public:
     /// Access constant in given row and column
     virtual const matrix_value_t & value(matrix_size_t row, matrix_value_t column) const = 0;
     /// Access to single row of the matrix through []
-    virtual MatrixRow<MatrixBase> operator[](matrix_size_t index) = 0;
+    virtual MatrixRow operator[](matrix_size_t index) = 0;
     /// Access to constant row of the matrix through []
-    virtual const MatrixRow<const MatrixBase> operator[](matrix_size_t index) const = 0;
+    virtual ConstMatrixRow operator[](matrix_size_t index) const = 0;
 
     virtual ~MatrixBase() = default;
 };
