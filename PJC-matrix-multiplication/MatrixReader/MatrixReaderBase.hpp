@@ -18,7 +18,7 @@ class MatrixBase;
 class MatrixReaderException: public std::exception {
 };
 
-class InvalidDimensionException: MatrixReaderException {
+class InvalidSizeException: MatrixReaderException {
 };
 
 class InvalidValueException: MatrixReaderException {

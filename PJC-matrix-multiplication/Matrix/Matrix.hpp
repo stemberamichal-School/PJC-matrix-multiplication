@@ -22,6 +22,9 @@ protected:
 public:
     Matrix(matrix_size_t rows, matrix_size_t columns);
 
+    // Instantiates squared metrix
+    Matrix(matrix_size_t side);
+
     virtual matrix_value_t & value(matrix_size_t row, matrix_value_t column) override;
 
     virtual const matrix_value_t & value(matrix_size_t row, matrix_value_t column) const override;

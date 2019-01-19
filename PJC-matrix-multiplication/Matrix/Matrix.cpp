@@ -9,9 +9,15 @@
 #include <stdio.h>
 #include <memory>
 #include "Matrix.hpp"
+#include "MatrixBase.hpp"
 
 Matrix::Matrix(matrix_size_t rows, matrix_size_t columns)
 :MatrixBase(rows, columns), m_matrix(std::vector<matrix_value_t>(rows * columns)) {
+}
+
+Matrix::Matrix(matrix_size_t side)
+:MatrixBase(side, side), m_matrix(std::vector<matrix_value_t>(side * side)){
+
 }
 
 matrix_value_t & Matrix::value(matrix_size_t row, matrix_value_t column) {

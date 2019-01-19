@@ -15,9 +15,8 @@
 
 class SquareMatrixReader: public MatrixReaderBase {
 protected:
-    virtual std::tuple<matrix_size_t, matrix_value_t *> read_first_line(const std::string & line) const;
-
-    virtual matrix_value_t * read_following_line(const std::string & line, int expected_size) const;
+    virtual std::vector<matrix_value_t> parse_line(const std::string & line) const;
+    
 public:
     virtual std::shared_ptr<MatrixBase> read(std::istream &is) const override;
 };

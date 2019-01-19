@@ -25,10 +25,10 @@ protected:
     using pointer = std::shared_ptr<matrix_base_t>;
     matrix_size_t m_row_index;
     matrix_size_t m_column_offset;
-    std::shared_ptr<matrix_base_t> m_matrix;
+    pointer m_matrix;
 
 public:
-    MatrixRow(pointer matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
+    MatrixRow(std::shared_ptr<matrix_base_t> matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
 
     virtual matrix_value_t& operator[](matrix_size_t index);
 
