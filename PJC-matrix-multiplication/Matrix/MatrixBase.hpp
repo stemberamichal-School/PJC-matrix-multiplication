@@ -62,14 +62,27 @@ public:
     virtual matrix_size_t rows() const;
     /// Number of columns in matrix
     virtual matrix_size_t columns() const;
+
     /// Access value in given row and column
     virtual matrix_value_t & value(matrix_size_t row, matrix_value_t column) = 0;
     /// Access constant in given row and column
     virtual const matrix_value_t & value(matrix_size_t row, matrix_value_t column) const = 0;
+
     /// Access to single row of the matrix through []
     virtual MatrixRow operator[](matrix_size_t index) = 0;
     /// Access to constant row of the matrix through []
     virtual ConstMatrixRow operator[](matrix_size_t index) const = 0;
+
+    /// Create writable submatrix
+    virtual std::shared_ptr<MatrixBase> submatrix(matrix_size_t row_offset,
+                                                  matrix_size_t col_offset,
+                                                  matrix_size_t rows,
+                                                  matrix_size_t columns);
+    /// Create redable submatrix
+    virtual std::shared_ptr<const MatrixBase> submatrix(matrix_size_t row_offset,
+                                                        matrix_size_t col_offset,
+                                                        matrix_size_t rows,
+                                                        matrix_size_t columns) const;
 
     virtual ~MatrixBase() = default;
 };
