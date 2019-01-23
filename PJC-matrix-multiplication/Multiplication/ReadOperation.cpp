@@ -1,19 +1,17 @@
 //
-//  SquareMatrixReader.cpp
+//  ReadOperation.cpp
 //  PJC-matrix-multiplication
 //
-//  Created by Michal Štembera on 19/01/2019.
+//  Created by Michal Štembera on 22/01/2019.
 //  Copyright © 2019 Michal Štembera. All rights reserved.
 //
 
-#include <memory>
-#include <sstream>
-#include <string>
 #include <vector>
-#include "Matrix.hpp"
-#include "SquareMatrixReader.hpp"
+#include <sstream>
+#include "ReadOperation.hpp"
+#include "MatrixBase.hpp"
 
-std::vector<matrix_value_t> SquareMatrixReader::parse_line(const std::string & line) const {
+std::vector<matrix_value_t> parse_line(const std::string & line) {
     std::istringstream is(line);
     matrix_value_t value;
     std::vector<matrix_value_t> row;

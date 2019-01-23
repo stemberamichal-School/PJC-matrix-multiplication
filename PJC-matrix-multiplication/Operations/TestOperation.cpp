@@ -8,6 +8,10 @@
 
 #include "TestOperation.hpp"
 
+bool TestOperation::hasWorkType(const OperationWorkType & type) const {
+    return type == Operation::OperationWorkType::Computes;
+}
+
 void TestOperation::work() {
     unsigned long int sum = 0;
     for (unsigned long int i = 0; i < m_loopCount; ++i) {

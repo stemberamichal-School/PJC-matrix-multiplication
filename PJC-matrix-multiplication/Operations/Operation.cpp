@@ -11,9 +11,26 @@
 #include "Operation.hpp"
 #include "OperationQueue.hpp"
 
-void Operation::work() { }
-
 Operation::Operation() { }
+
+unsigned char Operation::workTypePriority() const {
+    unsigned char workPriority = 0;
+
+    if (hasWorkType(OperationWorkType::Releases)) {
+        workPriority |= 1 << 3;
+    }
+    if (hasWorkType(OperationWorkType::Computes)) {
+        workPriority |= 1 << 2;
+    }
+    if (hasWorkType(OperationWorkType::Allocates)) {
+        workPriority |= 1 << 1;
+    }
+    if (hasWorkType(OperationWorkType::AddsOperations)) {
+        workPriority |= 1 << 0;
+    }
+
+    return workPriority;
+}
 
 OperationState Operation::getState() {
     return m_state;
@@ -23,14 +40,14 @@ void Operation::setState(OperationState newState) {
     m_state = newState;
 }
 
-int Operation::priority() {
+unsigned long int Operation::priority() const {
     switch(m_state) {
         case OperationState::Waiting:
         case OperationState::Executing:
         case OperationState::Finished:
-            return std::min(0, -(int)m_dependencies.size());
+            return 0;
         case OperationState::Ready:
-            return std::max(1, (int)m_dependent.size());
+            return (m_dependent.size() << 8) | workTypePriority();
     }
 }
 

@@ -25,7 +25,14 @@ enum class OperationState {
 /// If it is added to operation queue. Its state is changed to Ready if it has no dependencies.
 /// Otherwise it remains in waiting
 class Operation {
-private:
+protected:
+    enum class OperationWorkType {
+        Computes,       ///< Operation performs intensive calculation
+        Allocates,      ///< Operation performs allocation of additional resources during its run or in following operations
+        Releases,       ///< Operation enables releasing resources
+        AddsOperations, ///< Operation adds new Operation/s to OperationQueue
+    };
+
     /// OperationQueue to get notified about status updates.
     /// Can be nil if queue does not belong to any operation queue.
     OperationQueue * m_queue = nullptr;
@@ -37,8 +44,14 @@ private:
     /// Operations dependent on this on
     std::vector<OperationQueue::op_ptr> m_dependent;
 
+    /// Queries the operation whether it perfoms OperationWorkType. Primarily used to determine priority.
+    virtual bool hasWorkType(const OperationWorkType & type) const = 0;
+
+    /// Calculates priority based on work types performed. Is further used to determine overall priority.
+    virtual unsigned char workTypePriority() const;
+
     /// Actual work done by the operation
-    virtual void work();
+    virtual void work() = 0;
 
 public:
     /// Reference to OperationQueue to update its status
@@ -52,7 +65,7 @@ public:
 
     /// OperationQueue priority.
     /// Highest when ready.
-    int priority();
+    unsigned long int priority() const;
 
     /// Adds dependecy on another Operation.
     /// Dependecies can't be added once the Operation was added to operation queue.

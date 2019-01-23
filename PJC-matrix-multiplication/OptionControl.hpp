@@ -14,6 +14,7 @@
 #include <getopt.h>
 
 class OptionControl {
+protected:
     const char * short_opts = "t:m:h";
     const struct option long_opts[4] = {
         { "threads", required_argument, nullptr, 't' },
@@ -26,7 +27,7 @@ class OptionControl {
     int m_matrixes_count;
     bool m_show_help;
 
-    public:
+public:
     OptionControl();
 
     /// Number of threads that should be used for calculation

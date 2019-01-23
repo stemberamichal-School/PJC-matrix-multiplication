@@ -16,7 +16,9 @@ class TestOperation: public Operation {
 private:
     const unsigned long int m_loopCount;
 
-    virtual void work();
+    virtual bool hasWorkType(const OperationWorkType & type) const override;
+
+    virtual void work() override;
 
 public:
     TestOperation(unsigned long int loopCount);
