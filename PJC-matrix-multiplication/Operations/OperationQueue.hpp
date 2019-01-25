@@ -69,6 +69,11 @@ public:
     /// Updates operations state within the queue. Can be used to finish operation
     void operationDidFinish(Operation * operation);
 
+    /// Inserts single operation into the operation queue
+    /// Reorders operation queue
+    /// Notifies waiting threads through condition variable
+    void inserOperation(op_ptr op);
+
     /// Insert multiple operations into operation queue
     /// Reorders operation queue
     /// Notifies waiting threads throuhgh condition variable

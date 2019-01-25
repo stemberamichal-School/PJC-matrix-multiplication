@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <getopt.h>
+#include <vector>
+#include <string>
 
 class OptionControl {
 protected:
@@ -24,7 +26,7 @@ protected:
     };
 
     int m_threads_count;
-    int m_matrixes_count;
+    std::vector<const std::string> m_matrixes_files;
     bool m_show_help;
 
 public:
@@ -34,7 +36,7 @@ public:
     int getThreadsCount() const;
 
     /// Number of matrixes that should be generated for running
-    int getMatrixesCount() const;
+    const std::vector<const std::string>& getMatrixesFiles() const;
 
     /// Flag whether the user requested showing help
     bool getShowHelp() const;

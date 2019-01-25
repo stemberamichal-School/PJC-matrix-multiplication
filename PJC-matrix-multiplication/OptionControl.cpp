@@ -8,12 +8,10 @@
 
 #include "OptionControl.hpp"
 
-#define DEFAULT_MATRIXES_COUNT 1000
 #define DEFAULT_THREADS_COUNT 1
 
-
 OptionControl::OptionControl()
-:m_threads_count(DEFAULT_THREADS_COUNT), m_matrixes_count(DEFAULT_THREADS_COUNT), m_show_help(false) { }
+:m_threads_count(DEFAULT_THREADS_COUNT), m_matrixes_files(std::vector<const std::string>()), m_show_help(false) { }
 
 bool OptionControl::parseOptions(int argc, char ** argv, std::ostream & error_out) {
     int long_opt_idx = 0; // Will be ignored as return value will be used instead
@@ -28,7 +26,7 @@ bool OptionControl::parseOptions(int argc, char ** argv, std::ostream & error_ou
                     m_threads_count = std::stoi(optarg, nullptr);
                     break;
                 case 'm': // Matrixes
-                    m_matrixes_count = std::stoi(optarg, nullptr);
+                    m_matrixes_files.push_back(std::string(optarg));
                     break;
                 case 'h': // Help
                     m_show_help = true;
@@ -39,7 +37,6 @@ bool OptionControl::parseOptions(int argc, char ** argv, std::ostream & error_ou
                 default:
                     is_error = true;
                     break;
-
             }
         } catch (const std::invalid_argument & exc) {
             is_error = true;
@@ -60,8 +57,8 @@ int OptionControl::getThreadsCount() const {
     return m_threads_count;
 }
 
-int OptionControl::getMatrixesCount() const {
-    return m_matrixes_count;
+const std::vector<const std::string>& OptionControl::getMatrixesFiles() const {
+    return m_matrixes_files;
 }
 
 bool OptionControl::getShowHelp() const {
@@ -78,14 +75,18 @@ void OptionControl::printHelp(std::ostream & out) {
     // Options
     out << "Options:" << std::endl;
     out << "    -t --threads <count> Number of threads used [default: " << DEFAULT_THREADS_COUNT << "]." << std::endl;
-    out << "    -m --matrixes <count> Number of matrixes multiplied [default: " << DEFAULT_MATRIXES_COUNT << "]." << std::endl;
+    out << "    -m --matrixes <filename> File containing two square matrices separated by empty line, can be used multiple times." << std::endl;
     out << "    -h --help Show help." << std::endl;
 }
 
 std::ostream & operator<<(std::ostream & os, OptionControl const & option_control) {
     os << "Selected options:" << std::endl;
     os << "Number of threads (-t --threads): " << option_control.getThreadsCount() << std::endl;
-    os << "Number of matrixes (-m --matrixes): " << option_control.getMatrixesCount() << std::endl;
+    os << "Matrixes files (-m --matrixes): ";
+    for (auto it = option_control.getMatrixesFiles().begin(); it != option_control.getMatrixesFiles().end(); ++it) {
+        os << *it << " ";
+    }
+    os << std::endl;
     os << "Show help: (-h --help): " << std::boolalpha << option_control.getShowHelp() << std::endl;
      return os;
 }

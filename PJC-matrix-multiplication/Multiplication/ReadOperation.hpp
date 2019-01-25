@@ -16,22 +16,28 @@
 
 class MatrixBase;
 
-class MatrixReaderException: public std::exception {
+
+class ReadOperationException: public std::exception {
 };
 
-class InvalidSizeException: MatrixReaderException {
+class InvalidStreamException: public ReadOperationException {
 };
 
-class InvalidValueException: MatrixReaderException {
+class InvalidFormatException: public ReadOperationException {
+};
+
+class InvalidSizeException: public ReadOperationException {
+};
+
+class InvalidValueException: public ReadOperationException {
 };
 
 class ReadOperation: public Operation {
 protected:
-    using resource_pointer = std::unique_ptr<std::istream>;
+    using input_pointer = std::unique_ptr<std::istream>;
     using matrix_pointer = std::shared_ptr<MatrixBase>;
 
-    resource_pointer m_left_resource;
-    resource_pointer m_right_resource;
+    input_pointer m_input;
 
     matrix_pointer m_left_matrix;
     matrix_pointer m_right_matrix;
@@ -41,7 +47,7 @@ protected:
     virtual void work() override;
 public:
     /// Takes ownership of the provided resource stream
-    ReadOperation(resource_pointer & m_left_resource, resource_pointer & m_right_resource);
+    ReadOperation(input_pointer & input);
 
     /// Reads both matrices from streams provided in constructor into a new matrices.
     virtual void read();

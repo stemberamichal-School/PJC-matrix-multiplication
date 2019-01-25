@@ -12,8 +12,8 @@
 
 
 MultiplyOperation::MultiplyOperation(std::shared_ptr<const MatrixBase> left,
-                                         std::shared_ptr<const MatrixBase> right,
-                                         std::shared_ptr<MatrixBase> result)
+                                     std::shared_ptr<const MatrixBase> right,
+                                     std::shared_ptr<MatrixBase> result)
 :Operation(), m_left(left), m_right(right), m_result(result) { }
 
 void MultiplyOperation::work() {
