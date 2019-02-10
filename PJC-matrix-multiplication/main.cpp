@@ -7,10 +7,14 @@
 //
 
 #include <vector>
+#include <thread>
 #include "OptionControl.hpp"
 #include "OperationQueue.hpp"
 #include "TestOperation.hpp"
+#include "ReadOperation.hpp"
+#include "MultiplicationContext.hpp"
 
+void computeMatrixes(const OptionControl & control);
 void testOperationQueue();
 
 int main(int argc, char ** argv) {
@@ -28,7 +32,40 @@ int main(int argc, char ** argv) {
         std::cout << option_control; // Print selected options
     }
 
-    testOperationQueue();
+    computeMatrixes(option_control);
+//    testOperationQueue();
+}
+
+void compute(std::shared_ptr<OperationQueue> queue) {
+    OperationQueue::op_ptr op;
+    while((op = queue->next()).get()) {
+        op->execute();
+    }
+}
+
+void computeMatrixes(const OptionControl & control) {
+    auto in_files = control.getMatrixesFiles();
+    std::vector<OperationQueue::op_ptr> reads;
+
+    for (auto it = in_files.begin(); it != in_files.end(); ++it) {
+        auto out_file = (*it) + ".out";
+        auto ctx = std::make_shared<FileMultiplicationContext>(*it, out_file);
+        reads.push_back(std::make_shared<ReadOperation>(ctx));
+    }
+
+    auto op_queue = std::make_shared<OperationQueue>();
+    op_queue->insertOperations(reads.begin(), reads.end());
+
+    // Create threads
+    auto thread_count = std::max(1, control.getThreadsCount());
+    std::vector<std::thread> threads;
+    for (size_t i = 0; i < thread_count; ++i) {
+        threads.emplace_back(compute, op_queue);
+    }
+    // Join threads
+    for (auto& t: threads) {
+        t.join();
+    }
 }
 
 void testOperationQueue() {

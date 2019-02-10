@@ -72,6 +72,9 @@ void OperationQueue::operationDidFinish(Operation * op) {
 
     // Remove finished operation from executing
     m_executing.erase(remove_it);
+
+    // Notify
+    m_queueCondVar.notify_all();
 }
 
 
