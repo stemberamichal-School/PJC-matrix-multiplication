@@ -23,7 +23,7 @@ bool OptionControl::parseOptions(int argc, char ** argv, std::ostream & error_ou
         try {
             switch (arg) {
                 case 't': // Threads
-                    m_threads_count = std::stoi(optarg, nullptr);
+                    m_threads_count = std::max(1, std::stoi(optarg, nullptr));
                     break;
                 case 'm': // Matrixes
                     m_matrixes_files.push_back(std::string(optarg));

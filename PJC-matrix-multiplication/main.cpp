@@ -17,6 +17,11 @@
 void computeMatrixes(const OptionControl & control);
 void testOperationQueue();
 
+template <typename TimePoint>
+std::chrono::milliseconds to_ms(TimePoint tp) {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(tp);
+}
+
 int main(int argc, char ** argv) {
     OptionControl option_control;
     bool invalid_options = option_control.parseOptions(argc, argv, std::cerr);
@@ -56,8 +61,10 @@ void computeMatrixes(const OptionControl & control) {
     auto op_queue = std::make_shared<OperationQueue>();
     op_queue->insertOperations(reads.begin(), reads.end());
 
+    auto start = std::chrono::high_resolution_clock::now();
+
     // Create threads
-    auto thread_count = std::max(1, control.getThreadsCount());
+    auto thread_count = control.getThreadsCount();
     std::vector<std::thread> threads;
     for (size_t i = 0; i < thread_count; ++i) {
         threads.emplace_back(compute, op_queue);
@@ -66,6 +73,9 @@ void computeMatrixes(const OptionControl & control) {
     for (auto& t: threads) {
         t.join();
     }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "Needed " << to_ms(end - start).count() << " ms to finish.\n";
 }
 
 void testOperationQueue() {
