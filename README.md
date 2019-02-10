@@ -11,6 +11,8 @@ Lze počítat i více matic najednou s opakovaným použitím přepínače `-m`.
 ./matrix-multiplication -t 8 -m /Users/Michal/Documents/FEL/B6B36PJC/PJC-matrix-multiplication/matrices/01.txt -m  /Users/Michal/Documents/FEL/B6B36PJC/PJC-matrix-multiplication/matrices/02.txt -m /Users/Michal/Documents/FEL/B6B36PJC/PJC-matrix-multiplication/matrices/03.txt -m  /Users/Michal/Documents/FEL/B6B36PJC/PJC-matrix-multiplication/matrices/04.txt -m  /Users/Michal/Documents/FEL/B6B36PJC/PJC-matrix-multiplication/matrices/05.txt
 ```
 
+Řešení je dostupné na adrese [GitHub](https://github.com/stemberamichal-School/PJC-matrix-multiplication/tree/298d09bdd550cf60e7c322bda0c34e6bf51c9d85)
+
 # Měření
 Pro měření byl využit MacBook Pro 2015 se specifikací:
 
