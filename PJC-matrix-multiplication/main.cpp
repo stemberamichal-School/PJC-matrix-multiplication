@@ -48,7 +48,7 @@ void computeMatrixes(const OptionControl & control) {
     std::vector<OperationQueue::op_ptr> reads;
 
     for (auto it = in_files.begin(); it != in_files.end(); ++it) {
-        auto out_file = (*it) + ".out";
+        auto out_file = (*it) + ".multiplied";
         auto ctx = std::make_shared<FileMultiplicationContext>(*it, out_file);
         reads.push_back(std::make_shared<ReadOperation>(ctx));
     }

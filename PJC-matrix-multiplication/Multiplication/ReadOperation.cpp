@@ -33,10 +33,10 @@ std::vector<matrix_value_t> parse_line(const std::string & line) {
 
 std::shared_ptr<MatrixBase> read_matrix(std::istream &is) {
     std::string line;
-    matrix_size_t side = 0;
+    matrix_size_t side = SIZE_T_MAX;
     std::shared_ptr<MatrixBase> matrix;
 
-    for(int i = 0; std::getline(is, line); ++i) {
+    for(size_t i = 0; i < side && std::getline(is, line); ++i) {
         std::vector<matrix_value_t> row = parse_line(line);
 
         if (i == 0 && row.size() != 0) {
@@ -71,6 +71,7 @@ void ReadOperation::work() {
         }
     } catch(std::exception & exception) {
         // TODO: Should print something or somehow (best would be WriteExceptionOperation)
+        std::printf("%s", exception.what());
     }
 }
 

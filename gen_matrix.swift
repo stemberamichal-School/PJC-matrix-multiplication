@@ -6,7 +6,7 @@ import Foundation
 let cwd = FileManager.default.currentDirectoryPath
 let in_file = CommandLine.arguments.count < 2 ? "00.txt" : CommandLine.arguments[1]
 let out_file = in_file + ".out"
-let size = 100;
+let size = 10;
 let randomRange = -10 ..< 10
 
 let left = (0..<size).map { _ in
@@ -43,7 +43,7 @@ let results_str: String = result
     .joined(separator:"\n")
 
 let manager = FileManager.default
-let in_file_data = (left_str + "\n" + right_str).data(using: .utf8)
+let in_file_data = (left_str + "\n\n" + right_str + "\n").data(using: .utf8)
 manager.createFile(atPath: in_file, contents: in_file_data, attributes: nil)
 let out_file_data = results_str.data(using: .utf8)
 manager.createFile(atPath: out_file, contents: out_file_data, attributes: nil)

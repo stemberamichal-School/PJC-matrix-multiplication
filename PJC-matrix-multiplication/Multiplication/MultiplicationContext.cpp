@@ -14,11 +14,11 @@ FileMultiplicationContext::FileMultiplicationContext(const std::string & input, 
 :m_input_file(input), m_output_file(output) { }
 
 std::istream & FileMultiplicationContext::inputStream() {
-    m_input_stream = std::ifstream(m_input_file.c_str());
+    m_input_stream = std::ifstream(m_input_file.c_str(), std::fstream::in);
     return m_input_stream;
 }
 
 std::ostream & FileMultiplicationContext::outputStream() {
-    m_output_stream = std::ofstream(m_output_file.c_str());
+    m_output_stream = std::ofstream(m_output_file.c_str(), std::fstream::out);
     return m_output_stream;
 };

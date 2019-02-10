@@ -80,6 +80,7 @@ void OperationQueue::operationDidFinish(Operation * op) {
 
 // MARK: - Inserts
 void OperationQueue::insertOperation(op_ptr op) {
+    op->prepareForInsertionIntoQueue(this);
     {
         std::lock_guard<std::mutex> lk(m_queueLock);
         m_queueHeap.push_back(op);

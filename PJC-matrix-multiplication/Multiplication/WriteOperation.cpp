@@ -31,8 +31,9 @@ void WriteOperation::write() {
 
     for (size_t i = 0; i < m_matrix->rows(); i++) {
         for (size_t j = 0; j < m_matrix->columns(); j++) {
-            out << (*m_matrix)[i][j] << " ";
+            out << (*m_matrix)[i][j];
+            if (j != m_matrix->columns() - 1) { out << " "; }
         }
-        out << std::endl;
+        if (i != m_matrix->rows() - 1) { out << std::endl; }
     }
 }

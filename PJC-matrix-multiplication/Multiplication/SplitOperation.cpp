@@ -109,6 +109,7 @@ std::vector<SplitOperation::operation_pointer> SplitOperation::split() {
     auto result = std::make_shared<Matrix>(m_left->rows());
     auto result_op = split(operations, m_left, m_right, result);
     auto write_op = std::make_shared<WriteOperation>(result, m_ctx);
+    write_op->addDependency(result_op);
     operations.push_back(write_op);
 
     return operations;
