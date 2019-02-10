@@ -44,8 +44,6 @@
 		90774034201DE7E7009BFFD4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9077403B201E5546009BFFD4 /* MultiplyOperation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiplyOperation.cpp; sourceTree = "<group>"; };
 		9077403C201E5546009BFFD4 /* MultiplyOperation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MultiplyOperation.hpp; sourceTree = "<group>"; };
-		9077403E201E5A4C009BFFD4 /* MatrixResource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixResource.cpp; sourceTree = "<group>"; };
-		9077403F201E5A4C009BFFD4 /* MatrixResource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixResource.hpp; sourceTree = "<group>"; };
 		9079E09B203846060035D765 /* Operation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Operation.cpp; sourceTree = "<group>"; };
 		9079E09C203846060035D765 /* Operation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Operation.hpp; sourceTree = "<group>"; };
 		9079E09E203846810035D765 /* OperationQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OperationQueue.cpp; sourceTree = "<group>"; };
@@ -105,8 +103,6 @@
 				90774034201DE7E7009BFFD4 /* main.cpp */,
 				90BB1AAF217B8FE700187AF7 /* OptionControl.hpp */,
 				90BB1AAE217B8FE700187AF7 /* OptionControl.cpp */,
-				9077403F201E5A4C009BFFD4 /* MatrixResource.hpp */,
-				9077403E201E5A4C009BFFD4 /* MatrixResource.cpp */,
 				90B5FF9220270C9400777AEF /* Matrix */,
 				9079E09A203845E80035D765 /* Operations */,
 				90930701202C3CA300116785 /* Multiplication */,
