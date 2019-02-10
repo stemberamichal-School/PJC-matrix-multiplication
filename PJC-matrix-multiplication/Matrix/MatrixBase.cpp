@@ -60,3 +60,12 @@ std::shared_ptr<const MatrixBase> MatrixBase::submatrix(RightSubmatrix submatrix
 
     return this->submatrix(row_offset, col_offset, rows, columns);
 }
+
+std::shared_ptr<MatrixBase> MatrixBase::submatrix(ResultSubmatrix submatrix) {
+    auto rows = m_rows / 2;
+    auto columns = m_columns / 2;
+    auto row_offset = submatrix == ResultSubmatrix::a || submatrix == ResultSubmatrix::b ? 0 : m_rows / 2;
+    auto col_offset = submatrix == ResultSubmatrix::a || submatrix == ResultSubmatrix::c ? 0 : m_columns / 2;
+
+    return this->submatrix(row_offset, col_offset, rows, columns);
+}

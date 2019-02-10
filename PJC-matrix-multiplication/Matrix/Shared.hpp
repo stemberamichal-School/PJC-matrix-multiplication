@@ -19,6 +19,8 @@ enum class LeftSubmatrix { a, b, c, d };
 /// Four submetrixes into which original right multiplication operand squared matrix can be split
 enum class RightSubmatrix { e, f, g, h };
 /// Eight results of split matrix multiplications
-enum class ResultSubmatrix { ae, bg, af, bh, ce, dg, cf, dh };
+enum class SemiResultSubmatrix { ae, bg, af, bh, ce, dg, cf, dh };
+/// Four submatrixes to store combine semi results into
+enum class ResultSubmatrix { a, b, c, d };
 
 #endif /* Typedefs_hpp */

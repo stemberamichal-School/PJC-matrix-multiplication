@@ -31,6 +31,8 @@ protected:
 
     virtual void work() override;
 
+    void sum(ResultSubmatrix submatrix);
+
 public:
     /// Restraints:
     /// - left, right and result matrices have to be squared and of the same size
@@ -38,7 +40,7 @@ public:
     MergeOperation(const_pointer left, const_pointer right, pointer result);
 
     /// Submetrix into which the result should be written, created in constructor.
-    pointer semiResultSubmatrix(ResultSubmatrix submatrix);
+    pointer semiResultSubmatrix(SemiResultSubmatrix submatrix);
     /// Returns original left matrix operand
     const_pointer getLeft();
     /// Returns original right matrix operand

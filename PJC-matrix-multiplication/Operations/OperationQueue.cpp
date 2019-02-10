@@ -54,7 +54,7 @@ OperationQueue::op_ptr OperationQueue::next() {
 }
 
 void OperationQueue::operationDidFinish(Operation * op) {
-    std::lock_guard<std::mutex> lk(m_queueLock);
+    std::unique_lock<std::mutex> lk(m_queueLock);
 
     PointerPredicate predicate(op);
     auto remove_it = std::find_if(m_executing.begin(), m_executing.end(), predicate);
@@ -82,7 +82,7 @@ void OperationQueue::operationDidFinish(Operation * op) {
 void OperationQueue::insertOperation(op_ptr op) {
     op->prepareForInsertionIntoQueue(this);
     {
-        std::lock_guard<std::mutex> lk(m_queueLock);
+        std::unique_lock<std::mutex> lk(m_queueLock);
         m_queueHeap.push_back(op);
         std::push_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
     }

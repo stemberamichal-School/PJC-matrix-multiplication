@@ -6,7 +6,7 @@ import Foundation
 let cwd = FileManager.default.currentDirectoryPath
 let in_file = CommandLine.arguments.count < 2 ? "00.txt" : CommandLine.arguments[1]
 let out_file = in_file + ".out"
-let size = 10;
+let size = 400;
 let randomRange = -10 ..< 10
 
 let left = (0..<size).map { _ in

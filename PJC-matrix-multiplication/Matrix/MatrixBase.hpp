@@ -54,9 +54,11 @@ public:
                                                         matrix_size_t columns) const;
 
     /// Create readable submatrix
-    virtual std::shared_ptr<const MatrixBase>submatrix(LeftSubmatrix submatrix) const;
+    virtual std::shared_ptr<const MatrixBase> submatrix(LeftSubmatrix submatrix) const;
     /// Create readable submetrix
-    virtual std::shared_ptr<const MatrixBase>submatrix(RightSubmatrix submatrix) const;
+    virtual std::shared_ptr<const MatrixBase> submatrix(RightSubmatrix submatrix) const;
+    /// Create writable submetrix
+    virtual std::shared_ptr<MatrixBase> submatrix(ResultSubmatrix submatrix);
 
     virtual ~MatrixBase() = default;
 };

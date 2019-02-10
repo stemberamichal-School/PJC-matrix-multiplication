@@ -23,9 +23,9 @@
 
 bool SplitOperation::canSplit(const_matrix_pointer left, const_matrix_pointer right) const {
     return left->rows() % 2 == 0
-        && left->rows() > MIN_SPLIT_SIZE
+        && left->rows() >= MIN_SPLIT_SIZE
         && right->rows() % 2 == 0
-        && right->rows() > MIN_SPLIT_SIZE;
+        && right->rows() >= MIN_SPLIT_SIZE;
 }
 
 SplitOperation::operation_pointer SplitOperation::split(std::vector<operation_pointer> & operations,
@@ -39,35 +39,35 @@ SplitOperation::operation_pointer SplitOperation::split(std::vector<operation_po
         auto ae = this->split(operations,
                               left->submatrix(LeftSubmatrix::a),
                               right->submatrix(RightSubmatrix::e),
-                              merge->semiResultSubmatrix(ResultSubmatrix::ae));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::ae));
         auto bg = this->split(operations,
                               left->submatrix(LeftSubmatrix::b),
                               right->submatrix(RightSubmatrix::g),
-                              merge->semiResultSubmatrix(ResultSubmatrix::bg));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::bg));
         auto af = this->split(operations,
                               left->submatrix(LeftSubmatrix::a),
                               right->submatrix(RightSubmatrix::f),
-                              merge->semiResultSubmatrix(ResultSubmatrix::af));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::af));
         auto bh = this->split(operations,
                               left->submatrix(LeftSubmatrix::b),
                               right->submatrix(RightSubmatrix::h),
-                              merge->semiResultSubmatrix(ResultSubmatrix::bh));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::bh));
         auto ce = this->split(operations,
                               left->submatrix(LeftSubmatrix::c),
                               right->submatrix(RightSubmatrix::e),
-                              merge->semiResultSubmatrix(ResultSubmatrix::ce));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::ce));
         auto dg = this->split(operations,
                               left->submatrix(LeftSubmatrix::d),
                               right->submatrix(RightSubmatrix::g),
-                              merge->semiResultSubmatrix(ResultSubmatrix::dg));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::dg));
         auto cf = this->split(operations,
                               left->submatrix(LeftSubmatrix::c),
                               right->submatrix(RightSubmatrix::f),
-                              merge->semiResultSubmatrix(ResultSubmatrix::cf));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::cf));
         auto dh = this->split(operations,
                               left->submatrix(LeftSubmatrix::d),
                               right->submatrix(RightSubmatrix::h),
-                              merge->semiResultSubmatrix(ResultSubmatrix::dh));
+                              merge->semiResultSubmatrix(SemiResultSubmatrix::dh));
 
         merge->addDependency(ae);
         merge->addDependency(bg);

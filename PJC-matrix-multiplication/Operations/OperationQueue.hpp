@@ -90,7 +90,7 @@ public:
         }
         // After that we lock the queue and insert operations
         {
-            std::lock_guard<std::mutex> lk(m_queueLock);
+            std::unique_lock<std::mutex> lk(m_queueLock);
             m_queueHeap.insert(m_queueHeap.end(), first, end);
             std::make_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
         }
