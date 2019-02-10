@@ -8,6 +8,7 @@
 
 #include "MultiplyOperation.hpp"
 #include "MatrixBase.hpp"
+#include "MatrixRow.hpp"
 #include "Matrix.hpp"
 
 
@@ -15,6 +16,10 @@ MultiplyOperation::MultiplyOperation(std::shared_ptr<const MatrixBase> left,
                                      std::shared_ptr<const MatrixBase> right,
                                      std::shared_ptr<MatrixBase> result)
 :Operation(), m_left(left), m_right(right), m_result(result) { }
+
+bool MultiplyOperation::hasWorkType(const OperationWorkType & type) const {
+    return type == Operation::OperationWorkType::Computes;
+}
 
 void MultiplyOperation::work() {
     multiply();

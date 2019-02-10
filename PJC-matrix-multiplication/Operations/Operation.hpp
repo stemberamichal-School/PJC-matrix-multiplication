@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "OperationQueue.hpp"
 
 enum class OperationState {
@@ -24,7 +25,7 @@ enum class OperationState {
 /// Operation once created is in state Waiting
 /// If it is added to operation queue. Its state is changed to Ready if it has no dependencies.
 /// Otherwise it remains in waiting
-class Operation {
+class Operation: public std::enable_shared_from_this<Operation> {
 protected:
     enum class OperationWorkType {
         Computes,       ///< Operation performs intensive calculation
@@ -70,13 +71,13 @@ public:
     /// Adds dependecy on another Operation.
     /// Dependecies can't be added once the Operation was added to operation queue.
     /// In that casthe operation will return false;
-    static bool addDependecy(OperationQueue::op_ptr & dependent, OperationQueue::op_ptr & dependency);
+    bool addDependency(OperationQueue::op_ptr & dependency);
 
     // Remove dependecy and update state if no dependencies are necesssary to finish.
     void removeDependency(OperationQueue::op_ptr & dependency);
 
     /// Removes itself from all dependent operations.
-    static void removeFromDependent(OperationQueue::op_ptr & dependency);
+    void removeFromDependent();
 
     /// Saves pointer to the queue and updates state.
     void prepareForInsertionIntoQueue(OperationQueue * queue);

@@ -11,41 +11,10 @@
 
 #include <stdio.h>
 #include <memory>
+#include "Shared.hpp"
 
-typedef float matrix_value_t;
-typedef size_t matrix_size_t;
-
-class MatrixBase;
-
-/// Helper class for access through [][]
-class MatrixRow {
-protected:
-    using pointer = std::shared_ptr<MatrixBase>;
-    matrix_size_t m_row_index;
-    matrix_size_t m_column_offset;
-    pointer m_matrix;
-
-public:
-    MatrixRow(pointer matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
-
-    virtual matrix_value_t& operator[](matrix_size_t index);
-
-    virtual const matrix_value_t& operator[](matrix_size_t index) const;
-};
-
-/// Helper class for const access through [][]
-class ConstMatrixRow {
-    protected:
-        using const_pointer = std::shared_ptr<const MatrixBase>;
-        matrix_size_t m_row_index;
-        matrix_size_t m_column_offset;
-        const_pointer m_matrix;
-
-    public:
-        ConstMatrixRow(const_pointer matrix, matrix_size_t row_index, matrix_size_t column_offset = 0);
-
-        virtual const matrix_value_t& operator[](matrix_size_t index) const;
-};
+class MatrixRow;
+class ConstMatrixRow;
 
 /// Matrix base
 class MatrixBase: public std::enable_shared_from_this<MatrixBase> {
@@ -83,6 +52,11 @@ public:
                                                         matrix_size_t col_offset,
                                                         matrix_size_t rows,
                                                         matrix_size_t columns) const;
+
+    /// Create readable submatrix
+    virtual std::shared_ptr<const MatrixBase>submatrix(LeftSubmatrix submatrix) const;
+    /// Create readable submetrix
+    virtual std::shared_ptr<const MatrixBase>submatrix(RightSubmatrix submatrix) const;
 
     virtual ~MatrixBase() = default;
 };

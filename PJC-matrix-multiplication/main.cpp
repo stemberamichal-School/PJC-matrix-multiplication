@@ -41,9 +41,8 @@ void testOperationQueue() {
     }
 
     for (size_t i = 0; i < 10; ++i) {
-        for (size_t j = 0; i < 10; ++i) {
-            if (i == j) continue;
-            Operation::addDependecy(operations[i], operations[j]);
+        for (size_t j = i + 1; j < 10; ++j) {
+            operations[i]->addDependency(operations[j]);
         }
     }
 

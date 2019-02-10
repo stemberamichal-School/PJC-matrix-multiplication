@@ -10,6 +10,7 @@
 #include <memory>
 #include "Matrix.hpp"
 #include "MatrixBase.hpp"
+#include "MatrixRow.hpp"
 
 Matrix::Matrix(matrix_size_t rows, matrix_size_t columns)
 :MatrixBase(rows, columns), m_matrix(std::vector<matrix_value_t>(rows * columns)) {

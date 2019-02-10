@@ -51,14 +51,14 @@ unsigned long int Operation::priority() const {
     }
 }
 
-bool Operation::addDependecy(OperationQueue::op_ptr & dependent,
-                             OperationQueue::op_ptr & dependency) {
-    if (dependent->m_queue || dependency->m_queue) {
+bool Operation::addDependency(OperationQueue::op_ptr & dependency) {
+    // Cannot add dependencies while in operation queue
+    if (this->m_queue || dependency->m_queue) {
         return false; // TODO: throw instead??
     }
 
-    dependent->m_dependencies.push_back(dependency);
-    dependency->m_dependent.push_back(dependent);
+    this->m_dependencies.push_back(dependency);
+    dependency->m_dependent.push_back(shared_from_this());
 
     return true;
 }
@@ -75,9 +75,10 @@ void Operation::removeDependency(OperationQueue::op_ptr & dependency) {
     }
 }
 
-void Operation::removeFromDependent(OperationQueue::op_ptr & dependency) {
-    for (auto it = dependency->m_dependent.begin(); it != dependency->m_dependent.end(); ++it) {
-        (*it)->removeDependency(dependency);
+void Operation::removeFromDependent() {
+    auto this_ptr = shared_from_this();
+    for (auto it = this->m_dependent.begin(); it != this->m_dependent.end(); ++it) {
+        (*it)->removeDependency(this_ptr);
     }
 }
 

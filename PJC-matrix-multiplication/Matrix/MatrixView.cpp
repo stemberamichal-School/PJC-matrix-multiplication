@@ -10,6 +10,7 @@
 #include <memory.h>
 #include "MatrixView.hpp"
 #include "MatrixBase.hpp"
+#include "MatrixRow.hpp"
 
 // MARK: - MatrixView
 

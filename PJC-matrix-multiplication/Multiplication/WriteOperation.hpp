@@ -15,21 +15,23 @@
 #include "Operation.hpp"
 
 class MatrixBase;
+class MultiplicationContext;
 
 class WriteOperation: public Operation {
 protected:
     using const_matrix = std::shared_ptr<const MatrixBase>;
     using stream = std::shared_ptr<std::ostream>;
+    using context = std::shared_ptr<MultiplicationContext>;
 
+    context m_ctx;
     const_matrix m_matrix;
-    stream os;
 
     virtual bool hasWorkType(const OperationWorkType & type) const override;
 
     virtual void work() override;
 
 public:
-    WriteOperation(const_matrix & matrix, stream & os);
+    WriteOperation(const_matrix matrix, context context);
 
     /// Writes the matrix to stream provided in constructor.
     virtual void write();

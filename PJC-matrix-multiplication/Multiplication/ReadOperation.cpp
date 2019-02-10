@@ -10,8 +10,10 @@
 #include <sstream>
 #include "ReadOperation.hpp"
 #include "MatrixBase.hpp"
+#include "MatrixRow.hpp"
 #include "Matrix.hpp"
 #include "SplitOperation.hpp"
+#include "MultiplicationContext.hpp"
 
 std::vector<matrix_value_t> parse_line(const std::string & line) {
     std::istringstream is(line);
@@ -64,8 +66,8 @@ void ReadOperation::work() {
         read();
 
         if (m_queue) {
-            auto split_op = std::make_shared<SplitOperation>(m_left_matrix, m_right_matrix);
-            m_queue->inserOperation(split_op);
+            auto split_op = std::make_shared<SplitOperation>(m_ctx, m_left_matrix, m_right_matrix);
+            m_queue->insertOperation(split_op);
         }
     } catch(std::exception & exception) {
         // TODO: Should print something or somehow (best would be WriteExceptionOperation)
@@ -74,23 +76,21 @@ void ReadOperation::work() {
 
 // MARK: - ReadOperation - public
 
-ReadOperation::ReadOperation(input_pointer & input)
-:m_input(std::move(input)) { }
+ReadOperation::ReadOperation(ReadOperation::context ctx)
+:m_ctx(ctx) { }
 
 void ReadOperation::read() {
-    if (m_input.get() == nullptr) {
-        throw InvalidStreamException();
-    }
+    std::istream & input = m_ctx->inputStream();
 
     // Read left matrix
-    m_left_matrix = read_matrix(*m_input);
+    m_left_matrix = read_matrix(input);
     // Read empty line
     std::string line;
-    if (!std::getline(*m_input, line) || line.size() != 0) {
+    if (!std::getline(input, line) || line.size() != 0) {
         throw InvalidFormatException();
     }
     // Read right matrix
-    m_right_matrix = read_matrix(*m_input);
+    m_right_matrix = read_matrix(input);
 
     // Check if matrixes are realy squared and if they have same size.
     if(m_left_matrix->rows() != m_left_matrix->columns()

@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include "Operation.hpp"
-#include "OperationResource.hpp"
 #include "OperationQueue.hpp"
 
 bool OperationQueue::PriorityComparator::operator()(const OperationQueue::op_ptr& lhs,
@@ -20,36 +19,38 @@ bool OperationQueue::PointerPredicate::operator()(const op_ptr &check) {
     return check.get() == m_ptr;
 }
 
-OperationQueue::PointerPredicate::PointerPredicate(Operation * const pointer)
+OperationQueue::PointerPredicate::PointerPredicate(Operation *  pointer)
     :m_ptr(pointer) { }
 
 
-void OperationQueue::setOperationResource(std::weak_ptr<OperationResource> & operationResource) {
-    m_operationResource = operationResource;
+bool OperationQueue::hasFinished() const {
+    return m_queueHeap.empty() && m_executing.empty();
+}
+
+bool OperationQueue::hasReadyOperation() const {
+    return !m_queueHeap.empty() && m_queueHeap.front()->getState() == OperationState::Ready;
 }
 
 OperationQueue::op_ptr OperationQueue::next() {
-    std::lock_guard<std::mutex> lk(m_queueLock);
+    // Wait until work is available or ended
+    std::unique_lock<std::mutex> lk(m_queueLock);
+    m_queueCondVar.wait(lk, [this] {
+        return this->hasFinished() || this->hasReadyOperation();
+    });
 
-    // If there are no operations that can be solved
-    if (m_queueHeap.empty()
-       || m_queueHeap.front().get()->getState() != OperationState::Ready) {
-        if (auto resource = m_operationResource.lock()) {
-            auto newOperations = resource->getWork();
-        } else {
-            return op_ptr(nullptr);
-        }
+    if (hasFinished()) {
+        return op_ptr(nullptr);
+    } else {
+        // pop with highest priority from m_queueHeap
+        std::pop_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
+        auto operation = m_queueHeap.back();
+        m_queueHeap.pop_back();
+
+        // Push to m_executing
+        m_executing.push_back(operation);
+
+        return operation;
     }
-
-    // pop with highest priority from m_queueHeap
-    std::pop_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
-    auto operation = m_queueHeap.back();
-    m_queueHeap.pop_back();
-
-    // Push to m_executing
-    m_executing.push_back(operation);
-
-    return operation;
 }
 
 void OperationQueue::operationDidFinish(Operation * op) {
@@ -64,11 +65,22 @@ void OperationQueue::operationDidFinish(Operation * op) {
     }
 
     // Remove dependencies - might affect operations priority/state
-    Operation::removeFromDependent(*remove_it);
+    (*remove_it)->removeFromDependent();
 
     // Rebuild operations heap
     std::make_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
 
     // Remove finished operation from executing
     m_executing.erase(remove_it);
+}
+
+
+// MARK: - Inserts
+void OperationQueue::insertOperation(op_ptr op) {
+    {
+        std::lock_guard<std::mutex> lk(m_queueLock);
+        m_queueHeap.push_back(op);
+        std::push_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
+    }
+    m_queueCondVar.notify_one();
 }

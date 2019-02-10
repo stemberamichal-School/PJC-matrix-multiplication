@@ -15,7 +15,7 @@
 #include "Operation.hpp"
 
 class MatrixBase;
-
+class MultiplicationContext;
 
 class ReadOperationException: public std::exception {
 };
@@ -34,11 +34,10 @@ class InvalidValueException: public ReadOperationException {
 
 class ReadOperation: public Operation {
 protected:
-    using input_pointer = std::unique_ptr<std::istream>;
     using matrix_pointer = std::shared_ptr<MatrixBase>;
+    using context = std::shared_ptr<MultiplicationContext>;
 
-    input_pointer m_input;
-
+    context m_ctx;
     matrix_pointer m_left_matrix;
     matrix_pointer m_right_matrix;
 
@@ -47,7 +46,7 @@ protected:
     virtual void work() override;
 public:
     /// Takes ownership of the provided resource stream
-    ReadOperation(input_pointer & input);
+    ReadOperation(context ctx);
 
     /// Reads both matrices from streams provided in constructor into a new matrices.
     virtual void read();

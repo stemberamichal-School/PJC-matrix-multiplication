@@ -18,6 +18,9 @@ class Operation;
 enum class OperationState;
 class OperationResource;
 
+template class std::shared_ptr<Operation>; // Prevent from inlining
+template class std::vector<std::shared_ptr<Operation>>; // Prevent from inlining
+
 class OperationQueue {
 public:
     using op_ptr = std::shared_ptr<Operation>;
@@ -36,14 +39,14 @@ private:
 
     /// Lock which must be locked when making changes to the operation queue
     std::mutex m_queueLock;
+    /// Condition variable to keep waiting for work to be added
+    std::condition_variable m_queueCondVar;
     /// Max heap storing operations
     std::vector<op_ptr> m_queueHeap;
     /// Operations currenlty being executed
     std::vector<op_ptr> m_executing;
     /// Compares by priority and returns true if first has higher, false otherwise
     PriorityComparator m_cmp;
-    /// Resource to supply work when runs out of operations
-    std::weak_ptr<OperationResource> m_operationResource;
     /// Internal function which can insert to already locked queue
     template<class InputIterator>
     void __unlockedInsertOperations(InputIterator first,
@@ -57,10 +60,12 @@ private:
         std::make_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
     }
 
-public:
-    /// Sets resource for additional operations when current are finished/waiting.
-    void setOperationResource(std::weak_ptr<OperationResource> & operationResource);
+    /// Checks if there are no operations in queue or executing
+    bool hasFinished() const;
+    /// Checks if there is at least one operation in queue in state Ready
+    bool hasReadyOperation() const;
 
+public:
     /// Retrives next element from the queue
     /// If there are no more operations ends returns nil
     /// Waits on conditional variable for solving dependecies if all operations are Waiting.
@@ -72,7 +77,7 @@ public:
     /// Inserts single operation into the operation queue
     /// Reorders operation queue
     /// Notifies waiting threads through condition variable
-    void inserOperation(op_ptr op);
+    void insertOperation(op_ptr op);
 
     /// Insert multiple operations into operation queue
     /// Reorders operation queue
@@ -84,9 +89,12 @@ public:
             (*it)->prepareForInsertionIntoQueue(this);
         }
         // After that we lock the queue and insert operations
-        std::lock_guard<std::mutex> lk(m_queueLock);
-        m_queueHeap.insert(m_queueHeap.end(), first, end);
-        std::make_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
+        {
+            std::lock_guard<std::mutex> lk(m_queueLock);
+            m_queueHeap.insert(m_queueHeap.end(), first, end);
+            std::make_heap(m_queueHeap.begin(), m_queueHeap.end(), m_cmp);
+        }
+        m_queueCondVar.notify_all();
     }
 };
 
